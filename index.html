@@ -1,184 +1,146 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>عيد ميلاد آية 🎂</title>
+<title>Birthday Aya 🎂</title>
 
 <style>
 body {
   margin: 0;
-  font-family: Arial;
+  background: black;
   overflow: hidden;
+  font-family: sans-serif;
+}
+
+/* Reel container */
+.reel {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
 }
 
 /* Slides */
 .slide {
-  display: none;
-  height: 100vh;
-  width: 100%;
   position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  text-align: center;
+  color: white;
+  opacity: 0;
+  transform: scale(1.1);
+  transition: all 1s ease;
+}
+
+.slide.active {
+  opacity: 1;
+  transform: scale(1);
 }
 
 /* Backgrounds */
-.slide1 { background: linear-gradient(120deg, #ff9a9e, #fecfef); }
-.slide2 { background: linear-gradient(120deg, #a1c4fd, #c2e9fb); }
-.slide3 { background: linear-gradient(120deg, #fbc2eb, #a6c1ee); }
+.s1 { background: linear-gradient(120deg,#ff416c,#ff4b2b); }
+.s2 { background: linear-gradient(120deg,#2193b0,#6dd5ed); }
+.s3 { background: linear-gradient(120deg,#cc2b5e,#753a88); }
 
 /* Text */
 .title {
-  font-size: 3em;
-  color: white;
-  animation: bounce 2s infinite;
+  font-size: 40px;
+  text-align: center;
+  animation: fadeUp 1.5s ease;
 }
 
 .name {
-  font-size: 2.5em;
-  color: #ff4081;
+  font-size: 50px;
+  color: #ffccff;
 }
 
 /* Button */
 button {
-  padding: 10px 20px;
-  font-size: 18px;
-  border: none;
-  border-radius: 10px;
-  background: #ff4081;
-  color: white;
-  cursor: pointer;
   margin-top: 20px;
-}
-
-/* Cute characters */
-.cute {
-  font-size: 40px;
-  animation: floaty 3s infinite ease-in-out;
-}
-
-/* Balloons */
-.balloon {
-  position: absolute;
-  bottom: -150px;
-  width: 40px;
-  height: 60px;
-  background: red;
-  border-radius: 50%;
-  animation: float 6s infinite;
-}
-
-/* Hearts */
-.heart {
-  position: absolute;
-  color: pink;
-  font-size: 20px;
-  animation: float 5s infinite;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 30px;
+  background: white;
+  color: black;
+  font-size: 18px;
+  cursor: pointer;
 }
 
 /* Animations */
-@keyframes float {
-  0% { bottom: -100px;}
-  100% { bottom: 110vh;}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px);}
+  to { opacity: 1; transform: translateY(0);}
 }
 
-@keyframes bounce {
-  50% { transform: translateY(-20px);}
+/* Floating emojis */
+.float {
+  position: absolute;
+  font-size: 25px;
+  animation: floatUp 6s linear infinite;
 }
 
-@keyframes floaty {
-  50% { transform: translateY(-15px);}
-}
-
-/* Navigation */
-.nav {
-  position: fixed;
-  bottom: 20px;
-  width: 100%;
-  text-align: center;
+@keyframes floatUp {
+  from { transform: translateY(100vh);}
+  to { transform: translateY(-10vh);}
 }
 </style>
 
 </head>
 <body>
 
-<!-- 🎉 Slide 1 -->
-<div class="slide slide1">
-  <div class="title">🎉 عيد ميلاد سعيد 🎂</div>
-  <div class="name">آية 💖</div>
-  <div class="cute">🐰 🎈 🧸</div>
-</div>
+<div class="reel">
 
-<!-- 💌 Slide 2 -->
-<div class="slide slide2">
-  <div class="title">💌 رسالة ليك آية</div>
-  <button onclick="showMessage()">ضغط هنا 💖</button>
-  <p id="msg" style="display:none; color:white; font-size:20px;">
-    آية 💕  
-    نتي إنسانة زوينة بزاف وكتستاهلي كل خير 🌸  
-    كنتمنا ليك نهار معمر بالفرحة والضحك 🎉  
-    وعقبال 100 عام ديال السعادة ❤️✨
-  </p>
-  <div class="cute">🐻 💕 🐱</div>
-</div>
+  <!-- Slide 1 -->
+  <div class="slide s1 active">
+    <div class="title">🎉 Happy Birthday 🎂</div>
+    <div class="name">Aya 💖</div>
+  </div>
 
-<!-- 🎈 Slide 3 -->
-<div class="slide slide3">
-  <div class="title">🎈 استمتعي بنهارك 🎉</div>
-  <div class="cute">🎂 🐰 🎁 💖</div>
-</div>
+  <!-- Slide 2 -->
+  <div class="slide s2">
+    <div class="title">💌 Message</div>
+    <button onclick="showMsg()">Click 💖</button>
+    <p id="msg" style="display:none;">
+      Aya 💕 nti wa7da mn ahsan nas ❤️  
+      kanbghik بزاف وكنتمنا ليك السعادة 🎉✨
+    </p>
+  </div>
 
-<!-- Navigation -->
-<div class="nav">
-  <button onclick="prevSlide()">⬅️</button>
-  <button onclick="nextSlide()">➡️</button>
+  <!-- Slide 3 -->
+  <div class="slide s3">
+    <div class="title">🎈 Enjoy Your Day 🎉</div>
+  </div>
+
 </div>
 
 <script>
-let current = 0;
 let slides = document.querySelectorAll(".slide");
+let index = 0;
 
-function showSlide(index) {
-  slides.forEach(s => s.style.display = "none");
-  slides[index].style.display = "flex";
+function nextSlide(){
+  slides[index].classList.remove("active");
+  index = (index + 1) % slides.length;
+  slides[index].classList.add("active");
 }
 
-function nextSlide() {
-  current = (current + 1) % slides.length;
-  showSlide(current);
+setInterval(nextSlide, 4000);
+
+function showMsg(){
+  document.getElementById("msg").style.display="block";
 }
 
-function prevSlide() {
-  current = (current - 1 + slides.length) % slides.length;
-  showSlide(current);
+/* Emojis floating */
+let emojis = ["💖","🎉","🎈","✨","🎂"];
+for(let i=0;i<20;i++){
+  let e = document.createElement("div");
+  e.className="float";
+  e.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
+  e.style.left = Math.random()*100+"vw";
+  e.style.animationDuration = (3+Math.random()*3)+"s";
+  document.body.appendChild(e);
 }
-
-/* Auto slide */
-setInterval(() => {
-  nextSlide();
-}, 4000);
-
-/* Message */
-function showMessage() {
-  document.getElementById("msg").style.display = "block";
-}
-
-/* Generate balloons & hearts */
-for(let i=0;i<10;i++){
-  let b = document.createElement("div");
-  b.className = "balloon";
-  b.style.left = Math.random()*100+"vw";
-  document.body.appendChild(b);
-
-  let h = document.createElement("div");
-  h.className = "heart";
-  h.innerHTML = "💖";
-  h.style.left = Math.random()*100+"vw";
-  document.body.appendChild(h);
-}
-
-showSlide(current);
 </script>
 
 </body>
