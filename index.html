@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>عيد ميلاد آية 🎂</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  overflow: hidden;
+}
+
+/* Slides */
+.slide {
+  display: none;
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+/* Backgrounds */
+.slide1 { background: linear-gradient(120deg, #ff9a9e, #fecfef); }
+.slide2 { background: linear-gradient(120deg, #a1c4fd, #c2e9fb); }
+.slide3 { background: linear-gradient(120deg, #fbc2eb, #a6c1ee); }
+
+/* Text */
+.title {
+  font-size: 3em;
+  color: white;
+  animation: bounce 2s infinite;
+}
+
+.name {
+  font-size: 2.5em;
+  color: #ff4081;
+}
+
+/* Button */
+button {
+  padding: 10px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  background: #ff4081;
+  color: white;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+/* Cute characters */
+.cute {
+  font-size: 40px;
+  animation: floaty 3s infinite ease-in-out;
+}
+
+/* Balloons */
+.balloon {
+  position: absolute;
+  bottom: -150px;
+  width: 40px;
+  height: 60px;
+  background: red;
+  border-radius: 50%;
+  animation: float 6s infinite;
+}
+
+/* Hearts */
+.heart {
+  position: absolute;
+  color: pink;
+  font-size: 20px;
+  animation: float 5s infinite;
+}
+
+/* Animations */
+@keyframes float {
+  0% { bottom: -100px;}
+  100% { bottom: 110vh;}
+}
+
+@keyframes bounce {
+  50% { transform: translateY(-20px);}
+}
+
+@keyframes floaty {
+  50% { transform: translateY(-15px);}
+}
+
+/* Navigation */
+.nav {
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+}
+</style>
+
+</head>
+<body>
+
+<!-- 🎉 Slide 1 -->
+<div class="slide slide1">
+  <div class="title">🎉 عيد ميلاد سعيد 🎂</div>
+  <div class="name">آية 💖</div>
+  <div class="cute">🐰 🎈 🧸</div>
+</div>
+
+<!-- 💌 Slide 2 -->
+<div class="slide slide2">
+  <div class="title">💌 رسالة ليك آية</div>
+  <button onclick="showMessage()">ضغط هنا 💖</button>
+  <p id="msg" style="display:none; color:white; font-size:20px;">
+    آية 💕  
+    نتي إنسانة زوينة بزاف وكتستاهلي كل خير 🌸  
+    كنتمنا ليك نهار معمر بالفرحة والضحك 🎉  
+    وعقبال 100 عام ديال السعادة ❤️✨
+  </p>
+  <div class="cute">🐻 💕 🐱</div>
+</div>
+
+<!-- 🎈 Slide 3 -->
+<div class="slide slide3">
+  <div class="title">🎈 استمتعي بنهارك 🎉</div>
+  <div class="cute">🎂 🐰 🎁 💖</div>
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button onclick="prevSlide()">⬅️</button>
+  <button onclick="nextSlide()">➡️</button>
+</div>
+
+<script>
+let current = 0;
+let slides = document.querySelectorAll(".slide");
+
+function showSlide(index) {
+  slides.forEach(s => s.style.display = "none");
+  slides[index].style.display = "flex";
+}
+
+function nextSlide() {
+  current = (current + 1) % slides.length;
+  showSlide(current);
+}
+
+function prevSlide() {
+  current = (current - 1 + slides.length) % slides.length;
+  showSlide(current);
+}
+
+/* Auto slide */
+setInterval(() => {
+  nextSlide();
+}, 4000);
+
+/* Message */
+function showMessage() {
+  document.getElementById("msg").style.display = "block";
+}
+
+/* Generate balloons & hearts */
+for(let i=0;i<10;i++){
+  let b = document.createElement("div");
+  b.className = "balloon";
+  b.style.left = Math.random()*100+"vw";
+  document.body.appendChild(b);
+
+  let h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = "💖";
+  h.style.left = Math.random()*100+"vw";
+  document.body.appendChild(h);
+}
+
+showSlide(current);
+</script>
+
+</body>
+</html>
