@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aya 💖 App</title>
+
+<style>
+body{
+    margin:0;
+    font-family: "Segoe UI", sans-serif;
+    background:#0f0f1a;
+    color:white;
+    overflow:hidden;
+}
+
+/* APP CONTAINER */
+.app{
+    width:100%;
+    height:100vh;
+    position:relative;
+}
+
+/* NAVBAR */
+nav{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    display:flex;
+    justify-content:space-around;
+    background:#1b1b2e;
+    padding:10px 0;
+    z-index:10;
+}
+
+nav button{
+    background:none;
+    border:none;
+    color:white;
+    font-size:14px;
+    cursor:pointer;
+}
+
+/* SCREENS */
+.screen{
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    opacity:0;
+    transform:scale(0.95);
+    transition:0.6s ease;
+    pointer-events:none;
+}
+
+.screen.active{
+    opacity:1;
+    transform:scale(1);
+    pointer-events:auto;
+}
+
+/* COLORS */
+.bg1{background:radial-gradient(circle,#ff9a9e,#c084fc);}
+.bg2{background:radial-gradient(circle,#1a1a2e,#ff4b8b);}
+.bg3{background:radial-gradient(circle,#2b2d42,#8d99ae);}
+
+/* GIFT */
+.gift{
+    width:120px;
+    height:120px;
+    position:relative;
+    cursor:pointer;
+}
+
+.box{
+    width:100%;
+    height:100%;
+    background:#ff4b8b;
+    border-radius:12px;
+}
+
+.lid{
+    width:120px;
+    height:40px;
+    background:#ff1e6c;
+    position:absolute;
+    top:-40px;
+    transition:0.8s;
+    transform-origin:bottom;
+}
+
+.ribbon{
+    width:20px;
+    height:120px;
+    background:white;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+.gift.open .lid{
+    transform:rotate(-120deg);
+}
+
+/* HEARTS */
+.heart{
+    position:absolute;
+    font-size:18px;
+    animation:float 3s forwards;
+}
+
+@keyframes float{
+    to{
+        transform:translateY(-250px);
+        opacity:0;
+    }
+}
+
+/* MESSAGE */
+#msg{
+    width:80%;
+    text-align:center;
+    font-size:18px;
+    line-height:1.6;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- HOME -->
+<div class="screen bg1 active" id="home">
+    <h1>🎉 Aya App 💖</h1>
+    <p>Welcome to your surprise</p>
+</div>
+
+<!-- GIFT -->
+<div class="screen bg2" id="giftScreen">
+
+    <h2>🎁 Gift Box</h2>
+
+    <div class="gift" onclick="openGift(this)">
+        <div class="lid"></div>
+        <div class="box"></div>
+        <div class="ribbon"></div>
+    </div>
+
+    <div id="msg"></div>
+
+</div>
+
+<!-- END -->
+<div class="screen bg3" id="end">
+    <h1>💖 Aya</h1>
+    <p>نتي أغلى حاجة فحياتي 🥺❤️</p>
+</div>
+
+<!-- NAV -->
+<nav>
+    <button onclick="go('home')">Home</button>
+    <button onclick="go('giftScreen')">Gift</button>
+    <button onclick="go('end')">End</button>
+</nav>
+
+</div>
+
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
+</audio>
+
+<script>
+
+let current="home";
+
+/* NAV SYSTEM */
+function go(id){
+    document.querySelectorAll(".screen").forEach(s=>{
+        s.classList.remove("active");
+    });
+    document.getElementById(id).classList.add("active");
+    current=id;
+}
+
+/* TYPEWRITER */
+let message = "🎉 عيد ميلاد سعيد Aya 💖\n\nمن نهار دخلتي لحياتي وكلشي تبدل...\nوليت كنفرح أكثر ونعيش أحلى لحظات 🥺💕\n\nكنبغيك بزاف ❤️";
+
+let i=0;
+
+function typeWriter(){
+    if(i<message.length){
+        document.getElementById("msg").innerHTML+=message.charAt(i);
+        i++;
+        setTimeout(typeWriter,40);
+    }
+}
+
+/* GIFT */
+function openGift(el){
+
+    el.classList.add("open");
+
+    /* hearts */
+    for(let i=0;i<35;i++){
+        let h=document.createElement("div");
+        h.classList.add("heart");
+        h.innerHTML="💖";
+
+        h.style.left="50%";
+        h.style.top="50%";
+
+        let x=(Math.random()-0.5)*300;
+        let y=(Math.random()-1)*300;
+
+        h.style.transform=`translate(${x}px,${y}px)`;
+
+        document.body.appendChild(h);
+
+        setTimeout(()=>h.remove(),3000);
+    }
+
+    setTimeout(()=>{
+        typeWriter();
+    },800);
+}
+
+</script>
+
+</body>
+</html>
